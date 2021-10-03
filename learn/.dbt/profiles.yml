@@ -1,0 +1,15 @@
+config:
+  send_anonymous_usage_stats: False
+
+dbt_learn:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      threads: 1
+      host: localhost
+      port: 5432
+      user: postgres
+      pass: admin
+      dbname: dbt-learn-db
+      schema: warehouse
