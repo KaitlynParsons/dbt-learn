@@ -1,5 +1,5 @@
 # DBT-LEARN
-Tutorial following the dbt Fundamentals course with a postgres database.
+Tutorial following the [dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) course with a postgres database.
 - learn directory is the dbt project.
 - raw_data directory contains the sample data for the course.
 
@@ -10,3 +10,20 @@ Tutorial following the dbt Fundamentals course with a postgres database.
 - Python 3.9
 - dbt 0.20.2
 - postgres (I used pgadmin 4 as GUI).
+
+## Helpful Information
+### Model Naming Convetions
+- Sources
+  - Raw data that has already been loaded
+- Staging
+  - Clean and standardize the data
+  - One to one with source tables
+- Intermediate
+  - Models between staging and final models
+  - Always built on staging models
+- Fact
+  - Things that are occuring or have occurred
+  - Events, clicks, votes
+- Dimension
+  - people, place or thing
+  - users, companies, products, customers

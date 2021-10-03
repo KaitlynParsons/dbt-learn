@@ -4,7 +4,7 @@ export DBT_PROFILES_DIR=.dbt
 # dbt seed # loads csv files located in data directory
 # dbt test # runs tests defined in models, sources, snapshots & seeds
 # dbt snapshot # runs snapshots located in snapshot directory
-dbt run # compile sql model files against current target db
+dbt run --full-refresh # compile sql model files against current target db
 
 # dbt docs generate
 # dbt docs serve --port 8001
