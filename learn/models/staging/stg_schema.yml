@@ -2,20 +2,75 @@ version: 2
 
 models:
   - name: stg_customers
+    description: Staged customer data
     columns:
       - name: customer_id
+        description: Primary key for stg_customers
         tests:
           - unique
           - not_null
+      - name: first_name
+        description: First name of the customer for stg_customers
+        tests:
+          - not_null
+      - name: last_name
+        description: Last name of the customer for stg_customers
+        tests:
+          - not_null
 
   - name: stg_orders
+    description: Staged order data
     columns:
-      - name: status
+      - name: order_id
+        description: Primary key for stg_orders
         tests:
-          - accepted_values: 
-              values: ['returned', 'completed', 'shipped', 'placed', 'return_pending']
+          - unique
+          - not_null
       - name: customer_id
+        description: Foreign key to stg_customers.customer_id.
         tests:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
+      - name: order_date
+        description: Date the order occurred
+        tests:
+          - not_null
+      - name: status
+        description: '{{ doc("order_status")}}'
+        tests:
+          - accepted_values: 
+              values: ['returned', 'completed', 'shipped', 'placed', 'return_pending']
+
+  - name: stg_payments
+    description: Staged payment data
+    columns:
+      - name: payment_id
+        description: Primary key for stg_payments
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: Foreign key to stg_orders.order_id.
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+      - name: payment_method
+        description: How the customer paid for the order
+        tests:
+          - accepted_values: 
+              values: ['coupon', 'credit_card', 'bank_transfer', 'gift_card']
+      - name: status
+        description: The status of the payment method
+        tests:
+          - accepted_values: 
+              values: ['fail', 'success']
+      - name: amount
+        description: The amount paid
+        tests:
+          - not_null
+      - name: created_at
+        description: The day the payment occurred
+        tests:
+          - not_null
