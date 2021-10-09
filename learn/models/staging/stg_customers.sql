@@ -5,7 +5,7 @@ with customers as (
         first_name,
         last_name
 
-    from raw.customers
+    from {{source('raw', 'customers')}}
 
 )
 

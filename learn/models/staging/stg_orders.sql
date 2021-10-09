@@ -6,7 +6,7 @@ with orders as (
         order_date,
         status
 
-    from raw.orders
+    from {{source('raw', 'orders')}}
 
 )
 
