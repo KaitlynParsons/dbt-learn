@@ -27,3 +27,9 @@ Tutorial following the [dbt Fundamentals](https://courses.getdbt.com/courses/fun
 - Dimension
   - people, place or thing
   - users, companies, products, customers
+
+### Testing in dbt
+- Schema tests shipped with dbt: unique, not null, relationships, accepted values
+- Data Tests (specific)
+- Schema Tests (generalized)
+- Custom Schema Tests (require Jinja + Macros)
