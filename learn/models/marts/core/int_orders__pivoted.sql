@@ -1,4 +1,5 @@
 {%- set payment_methods = ['bank_transfer', 'credit_card', 'coupon', 'gift_card'] -%}
+{%- set column_names = ['payment_method', 'amount'] -%}
 
 with payments as (
     select * from {{ ref('stg_payments')}}
@@ -7,12 +8,7 @@ with payments as (
 pivoted as (
     select 
         order_id,
-        {% for payment_method in payment_methods -%}
-        sum(case when payment_method = '{{payment_method}}' then amount else 0 end) as {{payment_method}}_amount
-        {%- if not loop.last -%}
-        ,
-        {%- endif %}
-        {% endfor -%}
+        {{ pivot_payment_methods(payment_methods, column_names) }}
     from payments
     where status = 'success'
     group by 1
