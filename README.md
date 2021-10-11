@@ -11,7 +11,47 @@ Tutorial following the [dbt Fundamentals](https://courses.getdbt.com/courses/fun
 - dbt 0.20.2
 - postgres (I used pgadmin 4 as GUI).
 
-## Helpful Information
+## Helpful dbt Information
+
+### Materializations
+- tables
+  - Built as tables in the database.
+  - Data is Stored on disk.
+  - Slower to build.
+  - Faster to query.
+- views
+  - Built as views in the database.
+  - Query is stored on disk.
+  - Faster to build.
+  - Slower to query.
+- ephemeral
+  - Does not exist in the database
+  - Reusable code snippet
+  - Interpolated as CTE in a model that refs this model
+  - Cannot query directly.
+- incremental
+  - Built as table in the database
+  - On the first run, builds entire table
+  - On subsequent runs, only appends new records*
+  - Faster to build because you are only adding new records
+  - Does not capture 100% of the data all the tim
+  - Thinking for incremental:
+    - Start with view
+    - When it takes too long to query, switch to table
+    - When it takes too long to build, switch to incremental
+    - Truly Big Data - Always rebuild last 3 days, completely ignore late arrivals.
+    - Always replace data at the partition level.
+    - Ideal for immuntable event streams: tall + skinny table, append-only, no updates.
+    - Ideal if their are any updates, a reliable updated_at field.
+    - Approximately correct.
+    - Level of code complexity.
+    - Prioritize correectness can negate performance gains from incrementality.
+    - An upgrade, not a starting point!
+- snapshots
+  - Built as a table in the database, usually in a dedicated schema.
+  - On the first run, builds entire table and adds four columns: dbt_scd_id, dbt_updated_at, dbt_valid_from, and dbt_valid_to
+  - In future runs, dbt will scan the underlying data and append new records based on the configuration that is made.
+  - This allows you to capture historical data
 ### Model Naming Convetions
 - Sources
   - Raw data that has already been loaded
