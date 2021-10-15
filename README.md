@@ -1,5 +1,5 @@
 # DBT-LEARN
-Tutorial following the [dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) course with a postgres database.
+[dbt Fundamentals](https://courses.getdbt.com/courses/fundamentals) course with a postgres database.
 - learn directory is the dbt project.
 - raw_data directory contains the sample data for the course.
 
